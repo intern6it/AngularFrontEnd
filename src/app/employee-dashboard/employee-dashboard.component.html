@@ -1,0 +1,175 @@
+<nav class="navbar navbar-light bg-primary">
+    <div class="container fluid">
+        <h1 style="color: aliceblue;">ANGULAR CRUD</h1>
+ 
+        <div class="d-flex">
+            <button (click)="clickAddEmployee()" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-success">
+                ADD EMPLOYEE
+            </button>
+            <button (click)="saveFiles()" type="button" class="btn btn-success mx-2">
+              DOWNLOAND
+          </button>
+            <button routerLink="/login" class="btn btn-danger mx-2">Logout</button>
+        </div>
+    </div>
+</nav>
+
+
+<table class="table mt-3">
+    <thead>
+        <tr>
+            <th scope="col">Employee ID</th>
+            <th scope="col">FIRST NAME</th>
+            <th scope="col">LAST NAME</th>
+            <th scope="col">EMAIL ID</th>
+            <th scope="col">MOBILE NO</th>
+            <th scope="col">SALARY</th>
+            <th scope="col">GENDER</th>
+            <th scope="col">CITY</th>
+            <th scope="col">DATE</th>
+            <th scope="col">LANGUAGE</th>
+            <th scope="col">ACTION</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let row of employeeData">
+            <td>{{row.id}}</td>
+            <td>{{row.firstName}}</td>
+            <td>{{row.lastName}}</td>
+            <td>{{row.email}}</td>
+            <td>{{row.mobile}}</td>
+            <td>{{row.salary}}</td>
+            <td>{{row.gender}}</td>
+            <td>{{row.city}}</td>
+            <td>{{row.date}}</td>
+            <td>{{row.language}}</td>
+            <td>
+                <button (click)="onEdit(row)" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-info">Edit</button>
+                <button (click)="deleteEmployee(row)" class="btn btn-danger mx-3">Delete</button>
+            </td>
+        </tr>
+       
+    </tbody>
+</table>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Employee Detail</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="formValue" novalidate> 
+              <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label">First Name</label>
+                  <input trim [trimOnWriteValue]="false" type="text" formControlName="firstName" class="form-control" id="exampleInputEmail1">
+                  <span class="help-block" *ngIf="formValue.get('firstName')?.errors && (formValue.get('firstName')?.touched || formValue.get('firstName')?.dirty )">
+                    <small *ngIf="formValue.get('firstName')?.errors?.['required']" class="text-danger">FirstName must be is required</small> 
+                    <small *ngIf="formValue.get('firstName')?.errors?.['minlength'] || formValue.get('firstName')?.errors?.['maxlength']"  class="text-danger">FirstName must be in between 2 to 15 chatacater</small> 
+               
+                  
+                  </span>
+                </div>
+
+                <div class="mb-3">
+                  <label for="exampleInputPassword1" class="form-label">Last Name</label>
+                  <input trim [trimOnWriteValue]="false" type="text" formControlName="lastName" class="form-control" id="exampleInputPassword1">
+                  <span class="help-block" *ngIf="formValue.get('lastName')?.errors && (formValue.get('lastName')?.touched || formValue.get('lastName')?.dirty )">
+                    <small *ngIf="formValue.get('lastName')?.errors?.['required']" class="text-danger">LastName must be required</small> 
+                    <small *ngIf="formValue.get('lastName')?.errors?.['minlength'] || formValue.get('lastName')?.errors?.['maxlength']"  class="text-danger">LastName must be in between 2 to 15 chatacater</small> 
+                 
+                  </span>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Email Id</label>
+                    <input type="email" formControlName="email" class="form-control" id="exampleInputPassword1">
+                    <span class="help-block" *ngIf="formValue.get('email')?.errors && (formValue.get('email')?.touched || formValue.get('email')?.dirty )">
+                      <small *ngIf="formValue.get('email')?.errors?.['required']" class="text-danger">Email must be required</small> 
+                      <small *ngIf="formValue.get('email')?.errors?.['pattern']" class="text-danger">Email must be in proper format</small> 
+                   
+                    </span>
+                  
+                  
+                  </div>
+                  <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Mobile No</label>
+                    <input type="number" formControlName="mobile" class="form-control" id="exampleInputPassword1">
+
+                    <span class="help-block" *ngIf="formValue.get('mobile')?.errors && (formValue.get('mobile')?.touched || formValue.get('mobile')?.dirty )">
+                      <small *ngIf="formValue.get('mobile')?.errors?.['required']" class="text-danger">Mobile number must be required</small> 
+                      <small *ngIf="formValue.get('mobile')?.errors?.['pattern'] || formValue.get('mobile')?.errors?.['maxlength'] " class="text-danger">Please enter valid 10 digit mobile number</small> 
+                   
+                    </span>
+
+                  </div>
+                  <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Salary</label>
+                    <input type="number" formControlName="salary" class="form-control" id="exampleInputPassword1">
+                    <span class="help-block" *ngIf="formValue.get('salary')?.errors && (formValue.get('salary')?.touched || formValue.get('salary')?.dirty )">
+                      <small *ngIf="formValue.get('salary')?.errors?.['required']" class="text-danger">Salary should not be blanked</small> 
+                 
+                    </span>
+                  </div>
+          
+                  <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Gender</label> :
+                    <input type="radio" id="male" name="gender" value="Male" formControlName="gender">&nbsp; Male
+                    <input type="radio" id="female" name="gender" value="Female" formControlName="gender">&nbsp; Female <br>
+                    <span class="help-block" *ngIf="formValue.get('gender')?.errors && (formValue.get('gender')?.touched || formValue.get('gender')?.dirty )">
+                      <small *ngIf="formValue.get('gender')?.errors?.['required']" class="text-danger">Please select any option above!</small> 
+                 
+                    </span>
+                  </div>
+                  
+                  <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">City</label> :
+                    <select name="city" id="cities" formControlName="city">
+                      <option value="Ahm" selected>Ahm</option>
+                      <option value="surat">surat</option>
+                      <option value="baroda">baroda</option>
+                      <option value="rajkot">rajkot</option>
+                    </select>
+
+                    <span class="help-block" *ngIf="formValue.get('city')?.errors && (formValue.get('city')?.touched || formValue.get('city')?.dirty )">
+                      <small *ngIf="formValue.get('city')?.errors?.['required']" class="text-danger">Please select any one city from dropdown</small> 
+                    </span>
+
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="birthday">Birthday:</label>
+                    <input type="date" id="date" name="date" formControlName="date">
+                    <span class="help-block" *ngIf="formValue.get('date')?.errors && (formValue.get('date')?.touched || formValue.get('date')?.dirty )">
+                      <small *ngIf="formValue.get('date')?.errors?.['required']" class="text-danger">Please select Date</small> 
+                    </span>
+                  </div>
+
+                  <!-- <div *ngFor="let n of langugage">
+                    <input type="checkbox" formControlName="language" name="language" [checked]="n.name" [value]="n.name" class="form-check-input" (change)="onChangeLanguage($event)">&nbsp; {{n.name}} -->
+                    <!-- [value]="n.id" -->
+                  <!-- </div> -->
+
+                  <b>Language :</b> <br>
+                  <div *ngFor="let data of Data; let i=index">
+                 <label>
+                 <input type="checkbox" *ngIf="select.includes(data.value)" [value]="data.value" (change)="onCheckboxChange($event)" checked />
+               <input type="checkbox" *ngIf="!select.includes(data.value)" [value]="data.value" (change)="onCheckboxChange($event)"/>
+        {{data.name}}
+      </label>
+    </div>
+
+  
+                 
+        
+      </form>
+    </div>
+        <div class="modal-footer">
+          <button type="button" id="cancel" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" *ngIf="showAdd" [disabled]="formValue.invalid" (click)="postEmployeeDetails()" class="btn btn-primary">Add</button>
+          <button type="button" *ngIf="showUpdate" [disabled]="formValue.invalid" (click)="updateEmployeeDetails()" class="btn btn-primary">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>

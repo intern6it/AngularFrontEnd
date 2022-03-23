@@ -1,0 +1,40 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "firstName": "djnvjnj",
+      "lastName": "njnjncjnj",
+      "email": "njnjncjnj@gmail.com",
+      "mobile": 855845,
+      "salary": 5155
+    },
+    {
+      "id": 2,
+      "firstName": "yhhbh",
+      "lastName": "bhbhjjnjn",
+      "email": "kjnhjn",
+      "mobile": 484956,
+      "salary": 25622
+    }
+  ],
+  "comments": [],
+  "signupUsers": [
+    {
+      "fullname": "AELIS",
+      "email": "aelis@gmail.com",
+      "password": "123",
+      "mobile": 9696969696,
+      "id": 1
+    },
+    {
+      "fullname": "xsd",
+      "email": "asp@gmail.com",
+      "password": "123",
+      "mobile": 9566662626,
+      "id": 2
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
